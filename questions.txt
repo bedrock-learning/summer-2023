@@ -2,3 +2,9 @@ Student: I don't understand how small groups like the Wagner Group could hold in
 Student: So could the head of the Wagner group become the leader of Russia if Putin was overthrown?
 Student: So what you're saying is that the Ukraine war has not significantly increased their power?
 Student: So what are the most recent development with the Wagner group in Ukraine?
+
+Student: I don't understand how small groups like the Wagner Group could hold influence in Russia's government, can you explain the significance of this group?
+
+Student: I don't completely understand the concept of signatures in encryption. Can you explain it?
+Student: Can you give me an example of these private and public key pairs, along with their use?
+Student: Give me a more realistic technical example of this being used for internet encryption.
