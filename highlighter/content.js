@@ -1,18 +1,18 @@
 let port = chrome.runtime.connect({name: "highlightedTextPort"});
 
 function sendHighlightedText() {
-  const selectedText = window.getSelection().toString();
+  const selectedText = window.getSelection();
   if (selectedText) {
+    console.log(selectedText.anchorNode.parentElement.innerText);
     console.log(`Highlighted Text: ${selectedText}`);
-    port.postMessage({ text: selectedText });
+    port.postMessage({
+      'title': document.title,
+      'highlighted': selectedText.toString(),
+      'surroundingText': selectedText.anchorNode.parentElement.innerText,
+    });
   } else {
     console.log('No text selected');
   }
 }
 
 document.addEventListener('mouseup', sendHighlightedText);
-
-// Listen for the unload event and disconnect the port when it fires.
-window.addEventListener('unload', function() {
-  port.disconnect();
-});
