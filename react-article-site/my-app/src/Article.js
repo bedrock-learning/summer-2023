@@ -14,12 +14,13 @@ const Article = () => {
             if (selectedText.length > 0) {
                 const titleText = document.querySelector('h1').innerText;
                 const paragraphText = window.getSelection().anchorNode.parentNode.innerText;
-                const prompt = `
+                const preprompt = ` 
                  You are a virtual assistant that generates a message every time a user highlights text in an online course aimed at adults. 
                  In order to provide intelligent commentary on the highlighted text, I will provide the topic of the course, the entire paragraph in which  
                  the next was highlighted as well as the text itself that was highlighted. Provide a definition, or an interesting message to help the user  
                  understand whatever the highlighted text may be. This definition or message should be 3 sentences at most and try to give the user only 
-                 enough information to keep reading through the article. \n 
+                 enough information to keep reading through the article.`;
+                const prompt = `
                  Subject of lesson: ${titleText} \n
                  Paragraph: ${paragraphText} \n
                  Highlighted text: ${selectedText}
@@ -35,17 +36,17 @@ const Article = () => {
                 const openai = new OpenAIApi(configuration);
                 const chatCompletion = await openai.createChatCompletion({
                     model: "gpt-3.5-turbo",
-                    messages: [{role: "user", content: "Hello, tell me a fun fact."}],
+                    messages: [
+                        {role: "assistant", content: preprompt},
+                        {role: "user", content: prompt},
+                    ],
                 });
                 const rep = chatCompletion.data.choices[0].message.content.toString() ;
 
-                const popup = "You highlighted: " + selectedText + ".\n";
+                const popup = "You highlighted: '" + selectedText + "'\n\n AI Assistant Response: " + rep;
                 
-                const response = `
-                    Your AI assistant responded with: \n 
-                `
                 if (selectedText.length > 0) {
-                    setpopupText(rep);
+                    setpopupText(popup);
                     setShowPopup(true);
                 }
             }
