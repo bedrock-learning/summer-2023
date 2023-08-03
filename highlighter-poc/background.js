@@ -1,11 +1,19 @@
+import { Configuration, OpenAIApi } from "openai";
+
 chrome.runtime.onConnect.addListener(function(port) {
   if(port.name === "highlightedTextPort") {
     port.onMessage.addListener(async function(message) {
       console.log(message);
+
+      const configuration = new Configuration({
+        organization: "Personal",
+        apiKey: process.env.OPENAI_API_KEY,
+      });
+      const openai = new OpenAIApi(configuration);
       const completion = await openai.createCompletion({
         model: "gpt-3.5-turbo",
         prompt: generatePrompt(message.title, message.surroundingText, message.highlighted),
-        temperature: 0.6,
+        temperature: 0.1,
       });
       console.log(completion);
     });

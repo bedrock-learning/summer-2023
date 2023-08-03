@@ -1,2 +1,4 @@
 .env
 openai-quickstart-node/
+
+/node_modules
